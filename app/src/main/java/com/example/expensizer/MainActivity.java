@@ -1,6 +1,8 @@
 package com.example.expensizer;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -37,6 +39,14 @@ public class MainActivity extends AppCompatActivity {
         MainTabAdapter tabAdapter = new MainTabAdapter(getSupportFragmentManager(), getTabFragments(), getTabTitles());
         viewPager.setAdapter(tabAdapter);
         tabLayout.setupWithViewPager(viewPager);
+
+        binding.addExpenseFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddExpensesActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

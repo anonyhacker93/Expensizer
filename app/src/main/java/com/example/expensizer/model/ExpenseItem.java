@@ -1,15 +1,17 @@
 package com.example.expensizer.model;
 
-public class ExpenseItem {
+import java.io.Serializable;
+
+public class ExpenseItem implements Serializable {
     private long id;
     private String description;
     private double price;
     private String category;
-    private long time;
+    private String time;
     private String note;
 
-    public ExpenseItem(String description, double price, String category, long time) {
-        this.id = -1;
+    public ExpenseItem(String description, double price, String category, String time) {
+        //this.id = -1;
         this.description = description;
         this.price = price;
         this.category = category;
@@ -41,11 +43,11 @@ public class ExpenseItem {
         this.category = category;
     }
 
-    public long getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
