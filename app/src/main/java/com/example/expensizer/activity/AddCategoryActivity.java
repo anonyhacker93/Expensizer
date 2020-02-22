@@ -1,4 +1,4 @@
-package com.example.expensizer;
+package com.example.expensizer.activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.example.expensizer.R;
 import com.example.expensizer.database.ExpenseDatabaseHelper;
 import com.example.expensizer.databinding.ActivityAddCategoryBinding;
 import com.example.expensizer.model.ExpenseCategory;

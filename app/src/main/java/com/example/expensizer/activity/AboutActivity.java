@@ -1,8 +1,10 @@
-package com.example.expensizer;
+package com.example.expensizer.activity;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.expensizer.R;
 
 public class AboutActivity extends AppCompatActivity {
 

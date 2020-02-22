@@ -10,9 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.expensizer.DetailsExpenseActivity;
 import com.example.expensizer.R;
-import com.example.expensizer.UpdateExpenseActivity;
+import com.example.expensizer.activity.DetailsExpenseActivity;
+import com.example.expensizer.activity.UpdateExpenseActivity;
 import com.example.expensizer.database.ExpenseDatabaseHelper;
 import com.example.expensizer.databinding.RowShowExpensesLayoutBinding;
 import com.example.expensizer.model.ExpenseItem;

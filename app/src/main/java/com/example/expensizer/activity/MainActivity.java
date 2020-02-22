@@ -1,4 +1,4 @@
-package com.example.expensizer;
+package com.example.expensizer.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.expensizer.R;
 import com.example.expensizer.adapter.MainTabAdapter;
 import com.example.expensizer.databinding.ActivityMainBinding;
 import com.example.expensizer.fragment.HomeFragment;
