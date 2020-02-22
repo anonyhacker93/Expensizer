@@ -5,4 +5,7 @@
     <color name="colorAccent">#fb6542</color>
     <color name="tabTextColor">#FFFFFF</color>
     <color name="showTextColor">#FFFFFF</color>
+    <color name="Btn">#DD0D0D</color>
+    <color name="addExpenseValue">#0E0D0D</color>
+
 </resources>

@@ -13,4 +13,75 @@
         <item name="android:textSize">@dimen/mediamTextSize</item>
         <item name="android:textColor">@color/showTextColor</item>
     </style>
+
+    <style name="detailExpenseValueTextView" parent="RowTextStyle">
+        <item name="android:layout_width">170dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:layout_marginEnd">30dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">viewEnd</item>
+    </style>
+
+    <style name="detailExpenseNameTextView" parent="RowTextStyle">
+        <item name="android:textStyle">normal</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginTop">32dp</item>
+    </style>
+
+    <style name="updateExpenseValueTextView" parent="RowTextStyle">
+        <item name="android:layout_width">240dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:textAlignment">viewEnd</item>
+        <item name="android:inputType">textPersonName</item>
+    </style>
+
+    <style name="updateExpenseNameTextView" parent="RowTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginTop">50dp</item>
+        <item name="android:textAlignment">viewStart</item>
+    </style>
+
+    <style name="rowExpenseNameTextView" parent="RowTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:textAlignment">viewStart</item>
+    </style>
+
+    <style name="rowExpenseValueTextView" parent="RowTextStyle">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:textAlignment">viewEnd</item>
+        <item name="android:inputType">textPersonName</item>
+    </style>
+
+    <style name="addExpenseNameTextView" parent="RowTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:textAlignment">viewStart</item>
+    </style>
+
+    <style name="addExpenseValueTextView" parent="RowTextStyle">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:textAlignment">viewEnd</item>
+        <item name="android:textColor">@color/addExpenseValue</item>
+    </style>
+
+    <style name="addCategoryBtn">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/addExpenseValue</item>
+    </style>
+
 </resources>

@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.expensizer.DetailsExpenseActivity;
 import com.example.expensizer.R;
+import com.example.expensizer.UpdateExpenseActivity;
+import com.example.expensizer.database.ExpenseDatabaseHelper;
 import com.example.expensizer.databinding.RowShowExpensesLayoutBinding;
 import com.example.expensizer.model.ExpenseItem;
 
@@ -22,7 +24,7 @@ public class ShowExpensesRecycleAdapter extends RecyclerView.Adapter {
     ArrayList<ExpenseItem> expenseItemArrayList;
     RowShowExpensesLayoutBinding showExpensesLayoutBinding;
     Context context;
-
+    ExpenseDatabaseHelper dbHelper;
 
     public ShowExpensesRecycleAdapter(ArrayList<ExpenseItem> expenseItemArrayList, Context context) {
         this.expenseItemArrayList = expenseItemArrayList;
@@ -42,11 +44,21 @@ public class ShowExpensesRecycleAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         final ExpenseItem expenseItem = expenseItemArrayList.get(position);
-        MyViewHolder myViewHolder = (MyViewHolder) holder;
+        final MyViewHolder myViewHolder = (MyViewHolder) holder;
         myViewHolder.showExpensesLayoutBinding.descView.setText(expenseItem.getDescription());
         myViewHolder.showExpensesLayoutBinding.priceView.setText("" + expenseItem.getPrice());
+
+        myViewHolder.showExpensesLayoutBinding.expenseRow.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Intent intent = new Intent(context, UpdateExpenseActivity.class);
+                intent.putExtra("updateList", expenseItem);
+                context.startActivity(intent);
+                return true;
+            }
+        });
 
         myViewHolder.showExpensesLayoutBinding.expenseRow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,13 +67,6 @@ public class ShowExpensesRecycleAdapter extends RecyclerView.Adapter {
                 Intent intent = new Intent(context, DetailsExpenseActivity.class);
                 intent.putExtra("expensesItem", expenseItem);
                 context.startActivity(intent);
-            }
-        });
-        myViewHolder.showExpensesLayoutBinding.expenseRow.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-
-                return true;
             }
         });
     }

@@ -1,8 +1,10 @@
 package com.example.expensizer.model;
 
-import java.io.Serializable;
 
-public class ExpenseItem implements Serializable {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class ExpenseItem implements Parcelable {
     private long id;
     private String description;
     private double price;
@@ -66,4 +68,41 @@ public class ExpenseItem implements Serializable {
     public void setId(long id) {
         this.id = id;
     }
+
+    protected ExpenseItem(Parcel in) {
+        id = in.readLong();
+        description = in.readString();
+        price = in.readDouble();
+        category = in.readString();
+        time = in.readString();
+        note = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(description);
+        dest.writeDouble(price);
+        dest.writeString(category);
+        dest.writeString(time);
+        dest.writeString(note);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<ExpenseItem> CREATOR = new Parcelable.Creator<ExpenseItem>() {
+        @Override
+        public ExpenseItem createFromParcel(Parcel in) {
+            return new ExpenseItem(in);
+        }
+
+        @Override
+        public ExpenseItem[] newArray(int size) {
+            return new ExpenseItem[size];
+        }
+    };
 }
