@@ -1,17 +1,17 @@
-package com.example.expensizer.activity;
+package com.example.expensizer.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.expensizer.R;
-import com.example.expensizer.database.ExpenseDatabaseHelper;
 import com.example.expensizer.databinding.ActivityDetailsExpenseBinding;
 import com.example.expensizer.model.ExpenseItem;
+import com.example.expensizer.viewmodel.DetailExpenseViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,13 +20,14 @@ public class DetailsExpenseActivity extends AppCompatActivity {
 
     ActivityDetailsExpenseBinding binding;
     ExpenseItem expenseItem;
+    DetailExpenseViewModel viewModel;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_details_expense);
-
+        viewModel = ViewModelProviders.of(this).get(DetailExpenseViewModel.class);
         Intent intent = getIntent();
         if (intent != null) {
             expenseItem = intent.getParcelableExtra("expensesItem");
@@ -46,19 +47,13 @@ public class DetailsExpenseActivity extends AppCompatActivity {
 
 
             binding.dltBtn.setOnClickListener((view) -> {
-                deleteExpenseItem();
+                Long id = expenseItem.getId();
+                if (viewModel.deleteExpenseItem(id)) {
+                    finish();
+                }
             });
         }
     }
 
-    private void deleteExpenseItem() {
-        ExpenseDatabaseHelper dbHelper = ExpenseDatabaseHelper.getInstance(this);
-        Long id = expenseItem.getId();
-        if (dbHelper.deleteData(id)) {
-            Toast.makeText(this, getString(R.string.deleteItem), Toast.LENGTH_SHORT).show();
-            finish();
-        } else {
-            Toast.makeText(this, getString(R.string.failItemDelete), Toast.LENGTH_SHORT).show();
-        }
-    }
+
 }

@@ -13,14 +13,14 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.DeleteCategoryActivity"></activity>
-        <activity android:name=".activity.AddCategoryActivity" />
-        <activity android:name=".activity.AboutActivity" />
-        <activity android:name=".activity.SettingActivity" />
-        <activity android:name=".activity.UpdateExpenseActivity" />
-        <activity android:name=".activity.DetailsExpenseActivity" />
-        <activity android:name=".activity.AddExpensesActivity" />
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".view.activity.DeleteCategoryActivity"></activity>
+        <activity android:name=".view.activity.AddCategoryActivity" />
+        <activity android:name=".view.activity.AboutActivity" />
+        <activity android:name=".view.activity.SettingActivity" />
+        <activity android:name=".view.activity.UpdateExpenseActivity" />
+        <activity android:name=".view.activity.DetailsExpenseActivity" />
+        <activity android:name=".view.activity.AddExpensesActivity" />
+        <activity android:name=".view.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,4 +1,4 @@
-package com.example.expensizer.activity;
+package com.example.expensizer.view.activity;
 
 import android.os.Bundle;
 

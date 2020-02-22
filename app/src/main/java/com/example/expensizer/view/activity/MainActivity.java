@@ -1,4 +1,4 @@
-package com.example.expensizer.activity;
+package com.example.expensizer.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.expensizer.R;
@@ -17,7 +18,7 @@ import com.example.expensizer.adapter.MainTabAdapter;
 import com.example.expensizer.databinding.ActivityMainBinding;
 import com.example.expensizer.fragment.HomeFragment;
 import com.example.expensizer.fragment.ShowExpenseFragment;
-import com.example.expensizer.model.ExpenseItem;
+import com.example.expensizer.viewmodel.MainActivityViewModel;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -26,7 +27,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
-    ArrayList<ExpenseItem> expenseItemArrayList;
+    MainActivityViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,19 +37,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
+        viewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
         setupTabs();
+        setupDrawer();
+        setupAddFab();
     }
 
-    private void setupTabs() {
-        TabLayout tabLayout = binding.mainTabs;
-        ViewPager viewPager = binding.mainTabsViewPager;
-
-        MainTabAdapter tabAdapter = new MainTabAdapter(getSupportFragmentManager(), getTabFragments(), getTabTitles());
-        viewPager.setAdapter(tabAdapter);
-        tabLayout.setupWithViewPager(viewPager);
-
-        setupDrawer();
-
+    private void setupAddFab() {
         binding.addExpenseFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,7 +51,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
+    private void setupTabs() {
+        TabLayout tabLayout = binding.mainTabs;
+        ViewPager viewPager = binding.mainTabsViewPager;
+
+        MainTabAdapter tabAdapter = new MainTabAdapter(getSupportFragmentManager(), getTabFragments(), viewModel.getTabTitles());
+        viewPager.setAdapter(tabAdapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     private void setupDrawer() {
@@ -86,10 +89,5 @@ public class MainActivity extends AppCompatActivity {
         return fragments;
     }
 
-    List<String> getTabTitles() {
-        List<String> titleList = new ArrayList<>();
-        titleList.add(getString(R.string.home_tab));
-        titleList.add(getString(R.string.show_expense_tab));
-        return titleList;
-    }
+
 }

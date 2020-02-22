@@ -8,21 +8,23 @@ import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.expensizer.R;
 import com.example.expensizer.adapter.ShowExpensesRecycleAdapter;
-import com.example.expensizer.database.ExpenseDatabaseHelper;
 import com.example.expensizer.databinding.FragmentShowExpenseBinding;
 import com.example.expensizer.model.ExpenseItem;
+import com.example.expensizer.viewmodel.ShowExpenseViewModel;
 
 import java.util.ArrayList;
 
 //Show list of expenses
 public class ShowExpenseFragment extends Fragment {
-    ExpenseDatabaseHelper databaseHelper;
+
     FragmentShowExpenseBinding binding;
     ShowExpensesRecycleAdapter recycleAdapter;
+    ShowExpenseViewModel viewModel;
 
     public ShowExpenseFragment() {
 
@@ -32,7 +34,7 @@ public class ShowExpenseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        databaseHelper = ExpenseDatabaseHelper.getInstance(getContext());
+        viewModel = ViewModelProviders.of(this).get(ShowExpenseViewModel.class);
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_show_expense, container, false);
 
@@ -43,7 +45,7 @@ public class ShowExpenseFragment extends Fragment {
 
 
     private void setupRecyler() {
-        ArrayList<ExpenseItem> expenseItemsList = databaseHelper.getExpensesDetails();
+        ArrayList<ExpenseItem> expenseItemsList = viewModel.getExpenseDetails();
 
         recycleAdapter = new ShowExpensesRecycleAdapter(expenseItemsList, getContext());
         binding.showRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -55,7 +57,7 @@ public class ShowExpenseFragment extends Fragment {
         super.onResume();
 
         if (recycleAdapter != null) {
-            ArrayList<ExpenseItem> expenseItemsList = databaseHelper.getExpensesDetails();
+            ArrayList<ExpenseItem> expenseItemsList = viewModel.getExpenseDetails();
             recycleAdapter.setDataList(expenseItemsList);
             recycleAdapter.notifyDataSetChanged();
         }
