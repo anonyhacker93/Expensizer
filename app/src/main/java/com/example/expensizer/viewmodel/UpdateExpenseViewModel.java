@@ -14,6 +14,7 @@ import com.example.expensizer.model.ExpenseItem;
 public class UpdateExpenseViewModel extends AndroidViewModel {
 
     Context applicationContext;
+    ExpenseDatabaseHelper dbHelper;
 
     public UpdateExpenseViewModel(@NonNull Application application) {
         super(application);
@@ -21,12 +22,13 @@ public class UpdateExpenseViewModel extends AndroidViewModel {
     }
 
     public void updateExpenses(ExpenseItem expenseItem) {
-        ExpenseDatabaseHelper dbHelper = ExpenseDatabaseHelper.getInstance(getApplication());
+        dbHelper = ExpenseDatabaseHelper.getInstance(getApplication());
         if (dbHelper.updateExpense(expenseItem)) {
             Toast.makeText(applicationContext, applicationContext.getString(R.string.updateSuccessMsg), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(applicationContext, applicationContext.getString(R.string.updateFailMsg), Toast.LENGTH_SHORT).show();
         }
     }
+
 
 }

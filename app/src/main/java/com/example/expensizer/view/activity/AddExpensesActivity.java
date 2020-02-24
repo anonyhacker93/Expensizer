@@ -43,15 +43,15 @@ public class AddExpensesActivity extends AppCompatActivity {
         saveBtn.setOnClickListener((View view) -> {
             String descriptionText = descText.getText().toString();
             String price = mnyText.getText().toString();
-
-            if (!viewModel.validateInput(descriptionText, price)) {
+            Object objCategory = spinner.getSelectedItem();
+            if (!viewModel.validateInput(descriptionText, price, objCategory)) {
                 return;
             }
 
             long moneyText = Integer.parseInt(price);
             String curTime = new Date().toString();
-            String category = spinner.getSelectedItem().toString();
-            ExpenseItem expenseItem = new ExpenseItem(descriptionText, moneyText, category, curTime);
+
+            ExpenseItem expenseItem = new ExpenseItem(descriptionText, moneyText, objCategory.toString(), curTime);
             viewModel.addExpenseToDb(expenseItem);
             finish();
         });

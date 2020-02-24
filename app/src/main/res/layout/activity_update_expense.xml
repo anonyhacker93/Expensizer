@@ -51,12 +51,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView2" />
 
-        <EditText
-            android:id="@+id/categoryText"
-            style="@style/updateExpenseValueTextView"
-            app:layout_constraintBottom_toBottomOf="@+id/textView3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView3" />
+
 
         <EditText
             android:id="@+id/notesText"
@@ -67,13 +62,26 @@
 
         <ImageButton
             android:id="@+id/updateBtn"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="80dp"
             android:src="@drawable/ic_update_black_24dp"
-            style="@style/Widget.AppCompat.Button.Borderless"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/notesText" />
+
+        <Spinner
+            android:id="@+id/categorySpinner"
+            android:layout_width="236dp"
+            android:layout_height="48dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.722"
+            style="@style/updateExpenseValueTextView"
+            app:layout_constraintStart_toEndOf="@+id/textView3"
+            app:layout_constraintTop_toTopOf="@+id/textView3"
+            app:layout_constraintVertical_bias="0.523" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

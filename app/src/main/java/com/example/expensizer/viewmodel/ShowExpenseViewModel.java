@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
 import com.example.expensizer.database.ExpenseDatabaseHelper;
+import com.example.expensizer.model.ExpenseCategory;
 import com.example.expensizer.model.ExpenseItem;
 
 import java.util.ArrayList;
@@ -27,5 +28,10 @@ public class ShowExpenseViewModel extends AndroidViewModel {
     public ArrayList<ExpenseItem> getExpenseDetails() {
         ExpenseDatabaseHelper databaseHelper = ExpenseDatabaseHelper.getInstance(getApplication());
         return databaseHelper.getExpensesDetails();
+    }
+
+    public ArrayList<ExpenseCategory> getExpenseCategory() {
+        ExpenseDatabaseHelper databaseHelper = ExpenseDatabaseHelper.getInstance(getApplication());
+        return databaseHelper.getCategory();
     }
 }

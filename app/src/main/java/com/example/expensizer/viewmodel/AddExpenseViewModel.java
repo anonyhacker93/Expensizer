@@ -31,13 +31,17 @@ public class AddExpenseViewModel extends AndroidViewModel {
         return databaseHelper.getCategory();
     }
 
-    public boolean validateInput(String descriptionText, String price) {
+    public boolean validateInput(String descriptionText, String price, Object categoryObj) {
         if (descriptionText.isEmpty()) {
             Toast.makeText(applicationContext, "Desc is empty", Toast.LENGTH_SHORT).show();
             return false;
         }
         if (price.isEmpty()) {
             Toast.makeText(applicationContext, "price is empty", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (categoryObj == null) {
+            Toast.makeText(applicationContext, "Category is empty", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.expensizer.R;
 import com.example.expensizer.adapter.ShowExpensesRecycleAdapter;
 import com.example.expensizer.databinding.FragmentShowExpenseBinding;
+import com.example.expensizer.model.ExpenseCategory;
 import com.example.expensizer.model.ExpenseItem;
 import com.example.expensizer.viewmodel.ShowExpenseViewModel;
 
@@ -46,8 +47,9 @@ public class ShowExpenseFragment extends Fragment {
 
     private void setupRecyler() {
         ArrayList<ExpenseItem> expenseItemsList = viewModel.getExpenseDetails();
+        ArrayList<ExpenseCategory> expenseCategoryList = viewModel.getExpenseCategory();
 
-        recycleAdapter = new ShowExpensesRecycleAdapter(expenseItemsList, getContext());
+        recycleAdapter = new ShowExpensesRecycleAdapter(expenseItemsList, expenseCategoryList, getContext());
         binding.showRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.showRecycleView.setAdapter(recycleAdapter);
     }

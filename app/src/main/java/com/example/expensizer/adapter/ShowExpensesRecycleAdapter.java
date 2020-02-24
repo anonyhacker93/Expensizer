@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.expensizer.R;
 import com.example.expensizer.database.ExpenseDatabaseHelper;
 import com.example.expensizer.databinding.RowShowExpensesLayoutBinding;
+import com.example.expensizer.model.ExpenseCategory;
 import com.example.expensizer.model.ExpenseItem;
 import com.example.expensizer.view.activity.DetailsExpenseActivity;
 import com.example.expensizer.view.activity.UpdateExpenseActivity;
@@ -24,11 +25,13 @@ public class ShowExpensesRecycleAdapter extends RecyclerView.Adapter {
     ArrayList<ExpenseItem> expenseItemArrayList;
     RowShowExpensesLayoutBinding showExpensesLayoutBinding;
     Context context;
+    ArrayList<ExpenseCategory> expenseCategoriesList;
     ExpenseDatabaseHelper dbHelper;
 
-    public ShowExpensesRecycleAdapter(ArrayList<ExpenseItem> expenseItemArrayList, Context context) {
+    public ShowExpensesRecycleAdapter(ArrayList<ExpenseItem> expenseItemArrayList, ArrayList<ExpenseCategory> expenseCategoriesList, Context context) {
         this.expenseItemArrayList = expenseItemArrayList;
         this.context = context;
+        this.expenseCategoriesList = expenseCategoriesList;
     }
 
     public void setDataList(ArrayList<ExpenseItem> expenseItemArrayList) {
@@ -66,6 +69,7 @@ public class ShowExpensesRecycleAdapter extends RecyclerView.Adapter {
 
                 Intent intent = new Intent(context, DetailsExpenseActivity.class);
                 intent.putExtra("expensesItem", expenseItem);
+
                 context.startActivity(intent);
             }
         });

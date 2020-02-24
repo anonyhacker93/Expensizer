@@ -194,7 +194,17 @@ public class ExpenseDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean updateCategory(ExpenseCategory expenseCategory) {
-        SQLiteDatabase db = getWritableDatabase();
-        return true;
+        try {
+            SQLiteDatabase db = getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(COL_CATEGORIES, expenseCategory.getCategory());
+
+            db.update(CATEGORY_TABLE_NAME, values, COL_ID + " = ?", new String[]{"" + expenseCategory.getId()});
+            return true;
+        } catch (Exception ex) {
+            Log.d(TAG, "updateExpense: " + ex);
+            return false;
+        }
     }
+
 }
