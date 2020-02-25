@@ -72,7 +72,7 @@ public class UpdateExpenseActivity extends AppCompatActivity {
 
     private void loadSpinner() {
         categoryNameList = new ArrayList<>();
-        ArrayList<ExpenseCategory> expenseCategories = viewModel.getCategory();
+        ArrayList<ExpenseCategory> expenseCategories = viewModel.getCategoty();
 
         for (int i = 0; i < expenseCategories.size(); i++) {
             String categoryName = expenseCategories.get(i).getCategory();

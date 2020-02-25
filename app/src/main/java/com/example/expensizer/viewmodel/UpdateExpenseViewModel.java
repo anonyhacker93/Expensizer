@@ -9,7 +9,10 @@ import androidx.lifecycle.AndroidViewModel;
 
 import com.example.expensizer.R;
 import com.example.expensizer.database.ExpenseDatabaseHelper;
+import com.example.expensizer.model.ExpenseCategory;
 import com.example.expensizer.model.ExpenseItem;
+
+import java.util.ArrayList;
 
 public class UpdateExpenseViewModel extends AndroidViewModel {
 
@@ -30,5 +33,8 @@ public class UpdateExpenseViewModel extends AndroidViewModel {
         }
     }
 
-
+    public ArrayList<ExpenseCategory> getCategoty() {
+        dbHelper = ExpenseDatabaseHelper.getInstance(getApplication());
+        return dbHelper.getCategory();
+    }
 }
