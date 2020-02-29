@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -14,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.expensizer.R;
 import com.example.expensizer.adapter.ShowExpensesRecycleAdapter;
 import com.example.expensizer.databinding.FragmentShowExpenseBinding;
-import com.example.expensizer.model.ExpenseCategory;
 import com.example.expensizer.model.ExpenseItem;
 import com.example.expensizer.viewmodel.ShowExpenseViewModel;
 
@@ -40,16 +40,29 @@ public class ShowExpenseFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_show_expense, container, false);
 
         setupRecyler();
-
+        setupSearchView();
         return binding.getRoot();
+    }
+
+    private void setupSearchView() {
+        binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                recycleAdapter.filter(newText);
+                return true;
+            }
+        });
     }
 
 
     private void setupRecyler() {
         ArrayList<ExpenseItem> expenseItemsList = viewModel.getExpenseDetails();
-        ArrayList<ExpenseCategory> expenseCategoryList = viewModel.getExpenseCategory();
-
-        recycleAdapter = new ShowExpensesRecycleAdapter(expenseItemsList, expenseCategoryList, getContext());
+        recycleAdapter = new ShowExpensesRecycleAdapter(expenseItemsList, getContext());
         binding.showRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.showRecycleView.setAdapter(recycleAdapter);
     }

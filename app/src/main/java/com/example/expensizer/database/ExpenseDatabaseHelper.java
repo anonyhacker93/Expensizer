@@ -19,7 +19,7 @@ import static com.example.expensizer.Constacts.TAG;
 
 public class ExpenseDatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "ExpenseDB";
-    private static final int VERSION = 7;
+    private static final int VERSION = 1;
     private static final String EXPENSE_TABLE_NAME = "ExpenseTable1";
     private static final String CATEGORY_TABLE_NAME = "ExpenseCategory";
 
@@ -50,6 +50,7 @@ public class ExpenseDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         createTable(sqLiteDatabase);
         createCategoryTable(sqLiteDatabase);
+        addDefaultCategories(sqLiteDatabase);
     }
 
     private void createTable(SQLiteDatabase sqLiteDatabase) {
@@ -82,6 +83,19 @@ public class ExpenseDatabaseHelper extends SQLiteOpenHelper {
         } catch (SQLException ex) {
             Log.d(TAG, "ExpenseDatabaseHelper onCreate: " + ex.toString());
         }
+    }
+
+    private void addDefaultCategories(SQLiteDatabase sqLiteDatabase) {
+        addCategory(new ExpenseCategory("Grocery"), sqLiteDatabase);
+        addCategory(new ExpenseCategory("Kitchen"), sqLiteDatabase);
+        addCategory(new ExpenseCategory("Furniture"), sqLiteDatabase);
+        addCategory(new ExpenseCategory("Rent"), sqLiteDatabase);
+        addCategory(new ExpenseCategory("Services"), sqLiteDatabase);
+        addCategory(new ExpenseCategory("Cloths"), sqLiteDatabase);
+        addCategory(new ExpenseCategory("Gift"), sqLiteDatabase);
+        addCategory(new ExpenseCategory("Medical"), sqLiteDatabase);
+        addCategory(new ExpenseCategory("Health"), sqLiteDatabase);
+        addCategory(new ExpenseCategory("Others"), sqLiteDatabase);
     }
 
     public ArrayList<ExpenseCategory> getCategory() {
@@ -134,7 +148,7 @@ public class ExpenseDatabaseHelper extends SQLiteOpenHelper {
         return expenseItemList;
     }
 
-    public boolean deleteData(long id) {   // Lunch Time
+    public boolean deleteData(long id) {
         try {
             SQLiteDatabase sqLiteDatabase = getWritableDatabase();
             sqLiteDatabase.delete(EXPENSE_TABLE_NAME, COL_ID + "= ?", new String[]{"" + id});
@@ -146,10 +160,13 @@ public class ExpenseDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean addCategory(ExpenseCategory expenseCategory) {
+        return addCategory(expenseCategory, getWritableDatabase());
+    }
+
+    private boolean addCategory(ExpenseCategory expenseCategory, SQLiteDatabase sqLiteDatabase) {
         ContentValues values = new ContentValues();
         values.put(COL_CATEGORIES, expenseCategory.getCategory());
         try {
-            SQLiteDatabase sqLiteDatabase = getWritableDatabase();
             sqLiteDatabase.insert(CATEGORY_TABLE_NAME, null, values);
             return true;
         } catch (Exception ex) {

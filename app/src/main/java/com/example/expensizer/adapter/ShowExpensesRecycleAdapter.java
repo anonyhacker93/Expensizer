@@ -11,9 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.expensizer.R;
-import com.example.expensizer.database.ExpenseDatabaseHelper;
 import com.example.expensizer.databinding.RowShowExpensesLayoutBinding;
-import com.example.expensizer.model.ExpenseCategory;
 import com.example.expensizer.model.ExpenseItem;
 import com.example.expensizer.view.activity.DetailsExpenseActivity;
 import com.example.expensizer.view.activity.UpdateExpenseActivity;
@@ -25,18 +23,35 @@ public class ShowExpensesRecycleAdapter extends RecyclerView.Adapter {
     ArrayList<ExpenseItem> expenseItemArrayList;
     RowShowExpensesLayoutBinding showExpensesLayoutBinding;
     Context context;
-    ArrayList<ExpenseCategory> expenseCategoriesList;
-    ExpenseDatabaseHelper dbHelper;
+    ArrayList<ExpenseItem> filterExpenseList;
 
-    public ShowExpensesRecycleAdapter(ArrayList<ExpenseItem> expenseItemArrayList, ArrayList<ExpenseCategory> expenseCategoriesList, Context context) {
+    public ShowExpensesRecycleAdapter(ArrayList<ExpenseItem> expenseItemArrayList, Context context) {
         this.expenseItemArrayList = expenseItemArrayList;
         this.context = context;
-        this.expenseCategoriesList = expenseCategoriesList;
+        filterExpenseList = new ArrayList<>(expenseItemArrayList);
     }
+
 
     public void setDataList(ArrayList<ExpenseItem> expenseItemArrayList) {
         this.expenseItemArrayList = expenseItemArrayList;
     }
+
+
+    public void filter(String query) {
+        ArrayList<ExpenseItem> list = new ArrayList<>();
+        if (query.isEmpty()) {
+            list.addAll(expenseItemArrayList);
+        } else {
+            for (int i = 0; i < expenseItemArrayList.size(); i++) {
+                if (expenseItemArrayList.get(i).getDescription().contains(query.toLowerCase())) {
+                    list.add(expenseItemArrayList.get(i));
+                }
+            }
+        }
+        filterExpenseList = list;
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -48,20 +63,10 @@ public class ShowExpensesRecycleAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
-        final ExpenseItem expenseItem = expenseItemArrayList.get(position);
+        final ExpenseItem expenseItem = filterExpenseList.get(position);
         final MyViewHolder myViewHolder = (MyViewHolder) holder;
         myViewHolder.showExpensesLayoutBinding.descView.setText(expenseItem.getDescription());
         myViewHolder.showExpensesLayoutBinding.priceView.setText("" + expenseItem.getPrice());
-
-        myViewHolder.showExpensesLayoutBinding.expenseRow.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                Intent intent = new Intent(context, UpdateExpenseActivity.class);
-                intent.putExtra("updateList", expenseItem);
-                context.startActivity(intent);
-                return true;
-            }
-        });
 
         myViewHolder.showExpensesLayoutBinding.expenseRow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,11 +78,21 @@ public class ShowExpensesRecycleAdapter extends RecyclerView.Adapter {
                 context.startActivity(intent);
             }
         });
+
+        myViewHolder.showExpensesLayoutBinding.expenseRow.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Intent intent = new Intent(context, UpdateExpenseActivity.class);
+                intent.putExtra("updateList", expenseItem);
+                context.startActivity(intent);
+                return true;
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return expenseItemArrayList.size();
+        return filterExpenseList.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
